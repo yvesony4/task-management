@@ -1,5 +1,10 @@
 import express from "express";
-import { loginUser, signupUser } from "../controllers/userController.js";
+import {
+  forgot_password,
+  loginUser,
+  reset_password,
+  signupUser,
+} from "../controllers/userController.js";
 
 const router = express.Router();
 
@@ -8,5 +13,11 @@ router.post("/login", loginUser);
 
 // signup route
 router.post("/signup", signupUser);
+
+//forgot password
+router.post("/forgot_password", forgot_password);
+
+//reset password
+router.post("/reset_password", reset_password);
 
 export default router;

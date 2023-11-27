@@ -21,6 +21,12 @@ const userSchema = new Schema({
   confirmPassword: {
     type: String,
   },
+  resetToken: {
+    type: String,
+  },
+  resetTokenExpiration: {
+    type: String,
+  },
 });
 
 // static signup method
