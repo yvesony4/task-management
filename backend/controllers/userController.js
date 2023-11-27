@@ -33,7 +33,6 @@ export const signupUser = async (req, res) => {
 
     res.status(200).json({ email, token });
   } catch (error) {
-    console.log("debugger", error);
     res.status(400).json({ error: error.message });
   }
 };

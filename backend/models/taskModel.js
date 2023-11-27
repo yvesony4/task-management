@@ -35,6 +35,9 @@ const taskSchema = new Schema(
     attachedFile: {
       type: String,
     },
+    createdBy: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

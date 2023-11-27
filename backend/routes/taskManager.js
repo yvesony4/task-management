@@ -10,7 +10,7 @@ import getTasks, {
 
 const router = express.Router();
 
-// require auth for all workout routes
+// require auth for all task routes
 router.use(requireAuth);
 
 // GET all tasks
