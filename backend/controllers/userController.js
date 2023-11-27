@@ -7,17 +7,6 @@ const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
 };
 
-// Create a transporter using the default SMTP transport
-const transporter = nodemailer.createTransport({
-  host: "mail.bookly.africa",
-  port: 465,
-  secure: true,
-  auth: {
-    user: "noreply@bookly.africa",
-    pass: "9o@&favthI~B",
-  },
-});
-
 // login a user
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
@@ -57,8 +46,8 @@ function sendResetEmail(email, token) {
     subject: "Password Reset Request",
     text:
       `Hello QT global Software User, \n\n You are receiving this because you have requested the reset of the password for your account.\n\n` +
-      `Please click on the following link, or paste this into your browser to complete the process:\n\n` +
-      `http://localhost:4000/reset/${token}\n\n` +
+      `Please use the below token to proceed:\n\n` +
+      `${token}\n\n` +
       `If you did not request this, please ignore this email and your password will remain unchanged.\n`,
   };
   return transporter.sendMail(mailOptions);
@@ -102,7 +91,7 @@ export const forgot_password = async function (req, res, next) {
   }
 };
 
-export const reset_password = async function (req, res, next) {
+export const reset_password = async function (req, res) {
   const token = req.body.token;
   const newPassword = req.body.newPassword;
   const confirmPassword = req.body.confirmPassword;
@@ -121,17 +110,7 @@ export const reset_password = async function (req, res, next) {
     // Reset the user's password with the new one.
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(newPassword, salt);
-    // Validate the new password.
 
-    /* check this use case later
-
-    if (!validatePassword(hash)) {
-      return res.status(400).json({
-        message:
-          "at least 8 characters - capital letter - small letter - symbol.",
-      });
-    }
-    */
     user.password = hash;
     user.resetToken = null;
     user.resetTokenExpiration = null;
